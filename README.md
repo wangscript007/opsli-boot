@@ -43,6 +43,149 @@
 > - 账号: admin
 > - 密码: 123456
 
+## 代码结构
+```
+.
+├── opsli-api                                               对外API 控制中心
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── org
+│   │   │   │       └── opsli
+│   │   │   │           └── api
+│   │   │   │               ├── base                          API 基础
+│   │   │   │               ├── conf                          API 自动装配
+│   │   │   │               ├── msg                           API 信息
+│   │   │   │               ├── thread                        API 线程工厂
+│   │   │   │               ├── utils                         API 工具类
+│   │   │   │               ├── web                           API Web层
+│   │   │   │               └── warpper                       API 封装对象
+│   │   │   │
+├── opsli-base-support                                      基础模块
+│   ├── opsli-common                                          基础 - 公共模块
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   │   ├── java
+│   │   │   │   │   └── org
+│   │   │   │   │       └── opsli
+│   │   │   │   │           └── common
+│   │   │   │   │               ├── annotation                  公共模块 - 注解类
+│   │   │   │   │               ├── api                         公共模块 - Result内部文件(暂时无用)
+│   │   │   │   │               ├── base                        公共模块 - 基础类
+│   │   │   │   │               ├── constants                   公共模块 - 常量
+│   │   │   │   │               ├── enums                       公共模块 - Enums
+│   │   │   │   │               ├── exception                   公共模块 - 异常类
+│   │   │   │   │               ├── msg                         公共模块 - 信息
+│   │   │   │   │               └── utils                       公共模块 - 工具类 
+│   │   │   │   │
+│   └── opsli-core                                          基础 - 核心模块
+│       ├── src
+│       │   ├── main
+│       │   │   ├── java
+│       │   │   │   └── org
+│       │   │   │       └── opsli
+│       │   │   │           └── core
+│       │   │   │               ├── aspect                      核心模块 - AOP切面
+│       │   │   │               ├── base                        核心模块 - 基础类 Entity Service
+│       │   │   │               ├── cache                       核心模块 - 缓存处理
+│       │   │   │               ├── conf                        核心模块 - 全局统一自动装配
+│       │   │   │               ├── general                     核心模块 - 打印信息
+│       │   │   │               ├── handler                     核心模块 - 异常拦截处理
+│       │   │   │               ├── listener                    核心模块 - 系统监听器
+│       │   │   │               ├── msg                         核心模块 - 信息
+│       │   │   │               ├── persistence                 核心模块 - 查询条件构造器
+│       │   │   │               │   └── querybuilder
+│       │   │   │               │       └── chain               核心模块 - 查询条件构造器 - 责任链(例: 租户处理)
+│       │   │   │               ├── security                    核心模块 - 权限验证 - Shiro
+│       │   │   │               ├── thread                      核心模块 - 线程处理
+│       │   │   │               ├── utils                       核心模块 - 工具类
+│       │   │   │               └── waf                         核心模块 - 软件防火墙
+│       │   │   │
+├── opsli-modulars                                        业务
+│   ├── opsli-modulars-system                               系统模块
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   │   ├── java
+│   │   │   │   │   └── org
+│   │   │   │   │       └── opsli
+│   │   │   │   │           └── modulars
+│   │   │   │   │               └── system
+│   │   │   │   │                   ├── depart                  系统模块 - 部门(暂无)
+│   │   │   │   │                   ├── dict                    系统模块 - 字典
+│   │   │   │   │                   ├── login                   系统模块 - 登录
+│   │   │   │   │                   ├── logs                    系统模块 - 日志
+│   │   │   │   │                   ├── menu                    系统模块 - 菜单
+│   │   │   │   │                   ├── role                    系统模块 - 角色
+│   │   │   │   │                   ├── tenant                  系统模块 - 租户
+│   │   │   │   │                   └── user                    系统模块 - 用户
+│   │   │   │   │
+├── opsli-plugins                                         插件
+│   ├── opsli-plugins-ehcache                               Ehcache缓存插件 (二级缓存)
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   │   ├── java
+│   │   │   │   │   └── org
+│   │   │   │   │       └── opsli
+│   │   │   │   │           └── plugins
+│   │   │   │   │               └── cache
+│   │   │   │   │                   ├── conf                  Ehcache缓存插件 - 自动装配
+│   │   │   │   │                   ├── msg                   Ehcache缓存插件 - 信息
+│   │   │   │   │                   └── service               Ehcache缓存插件 - 服务
+│   │   │   │   │
+│   ├── opsli-plugins-excel                                 Excel插件
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   │   ├── java
+│   │   │   │   │   └── org
+│   │   │   │   │       └── opsli
+│   │   │   │   │           └── plugins
+│   │   │   │   │               └── excel
+│   │   │   │   │                   ├── annotation            Excel插件 - 注解
+│   │   │   │   │                   ├── exception             Excel插件 - 异常类
+│   │   │   │   │                   ├── factory               Excel插件 - 工厂
+│   │   │   │   │                   ├── listener              Excel插件 - 监听器
+│   │   │   │   │                   └── msg                   Excel插件 - 信息
+│   │   │   │   │
+│   ├── opsli-plugins-mail                                  邮件插件
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   │   ├── java
+│   │   │   │   │   └── org
+│   │   │   │   │       └── opsli
+│   │   │   │   │           └── plugins
+│   │   │   │   │               └── mail
+│   │   │   │   │                   ├── exception             邮件插件 - 异常类
+│   │   │   │   │                   ├── handler               邮件插件 - 处理类
+│   │   │   │   │                   ├── model                 邮件插件 - 模型
+│   │   │   │   │                   └── msg                   邮件插件 - 信息
+│   │   │   │   │
+│   └── opsli-plugins-redis                                 Redis缓存插件(一级缓存)
+│       ├── src
+│       │   ├── main
+│       │   │   ├── java
+│       │   │   │   └── org
+│       │   │   │       └── opsli
+│       │   │   │           └── plugins
+│       │   │   │               └── redis
+│       │   │   │                   ├── conf                  Redis缓存插件 - 自动装配
+│       │   │   │                   ├── exception             Redis缓存插件 - 异常类
+│       │   │   │                   ├── lock                  Redis缓存插件 - 分布式锁
+│       │   │   │                   ├── msg                   Redis缓存插件 - 信息
+│       │   │   │                   ├── pushsub               Redis缓存插件 - 消息订阅
+│       │   │   │                   └── scripts               Redis缓存插件 - 脚本处理
+│       │   │   └── resources
+│       │   │   │    └── lua                                  Redis缓存插件 - Lua脚本
+│       │   │   │
+└── opsli-starter                                        启动类
+    └── src
+        └── main
+            ├── java
+            │   └── org
+            │       └── opsli                              启动类 - 启动器
+            └── resources                                  启动类 - 配置
+                └── config                                 启动类 - 其他配置
+
+```
 
 ## 授权协议声明
 
